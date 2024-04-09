@@ -1,25 +1,27 @@
 pipeline {
     agent any
-
+    tools{
+    maven'MAVEN'
+    }
     stages {
         stage('code checkout') {
             steps {
-                echo 'code checkout'
+        git changelog: false, poll: false, url: 'https://github.com/Aniket10720/Javawebapp.git'
             }
         }
         stage('code build') {
             steps {
-                echo 'code build'
+                sh 'mvn build'
             }
         }
         stage('test') {
             steps {
-                echo 'testing'
+                sh 'mvn testing'
             }
         }
         stage('deploy') {
             steps {
-                echo 'deploying'
+                echo 'deploy to nexus '
             }
         }
     }
